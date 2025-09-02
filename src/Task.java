@@ -3,10 +3,10 @@ import java.util.Objects;
 public class Task {
     private static int newId = 1;
 
-    private int id;
-    private String name;
-    private String description;
-    private TaskStatus status;
+    protected int id;
+    protected String name;
+    protected String description;
+    protected TaskStatus status;
 
     public Task(int id, String name, String description, TaskStatus status) {
         this.id = id;
@@ -39,14 +39,14 @@ public class Task {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
         return id == task.id;
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hashCode(id);
     }
 
