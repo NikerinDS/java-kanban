@@ -1,12 +1,10 @@
 import java.util.Objects;
 
 public class Task {
-    private static int newId = 1;
-
-    protected int id;
-    protected String name;
-    protected String description;
-    protected TaskStatus status;
+    private int id;
+    private String name;
+    private String description;
+    private TaskStatus status;
 
     public Task(int id, String name, String description, TaskStatus status) {
         this.id = id;
@@ -15,11 +13,12 @@ public class Task {
         this.status = status;
     }
 
+    public Task(Task task) {
+        this(task.id, task.name, task.description, task.status);
+    }
+
     public Task(String name, String description) {
-        this.id = newId++;
-        this.name = name;
-        this.description = description;
-        this.status = TaskStatus.NEW;
+        this(0, name, description, TaskStatus.NEW);
     }
 
     public int getId() {
@@ -36,6 +35,22 @@ public class Task {
 
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     @Override

@@ -8,9 +8,12 @@ public class EpicTask extends Task {
         this.subtasksId = new ArrayList<>(subtasksId);
     }
 
+    public EpicTask(EpicTask task) {
+        this(task.getId(), task.getName(), task.getDescription(), task.subtasksId, task.getStatus());
+    }
+
     public EpicTask(String name, String description) {
-        super(name, description);
-        this.subtasksId = new ArrayList<>();
+        this(0, name, description, new ArrayList<>(), TaskStatus.NEW);
     }
 
     public ArrayList<Integer> getSubtasksId() {
@@ -20,11 +23,11 @@ public class EpicTask extends Task {
     @Override
     public String toString() {
         return "EpicTask{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                ", subtasks.size=" + subtasksId.size() +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", status=" + getStatus() +
+                ", subtasksId=" + subtasksId +
                 '}';
     }
 }

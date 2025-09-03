@@ -9,8 +9,9 @@ public class Main {
         tm.createSimpleTask(task2);
         System.out.println(tm.getListOfSimpleTasks());
 
-        task2 = new Task(task2.getId(), task2.getName(), "выкинуть мусор", TaskStatus.IN_PROGRESS);
-        task1 = new Task(task1.getId(), task1.getName(), task1.getDescription(), TaskStatus.DONE);
+        task1.setStatus(TaskStatus.DONE);
+        task2.setDescription("выкинуть мусор");
+        task2.setStatus(TaskStatus.IN_PROGRESS);
 
         tm.updateSimpleTask(task1);
         tm.updateSimpleTask(task2);
@@ -32,8 +33,16 @@ public class Main {
         System.out.println(tm.getListOfSubtasks());
         System.out.println();
 
-        tm.updateSubtask(new Subtask(sub1.getId(),sub1.getName(),sub1.getDescription(),sub1.getEpicId(),TaskStatus.DONE));
-        tm.updateSubtask(new Subtask(sub2.getId(),sub2.getName(),sub2.getDescription(),sub2.getEpicId(),TaskStatus.IN_PROGRESS));
+        sub1.setStatus(TaskStatus.DONE);
+        sub2.setStatus(TaskStatus.IN_PROGRESS);
+
+        System.out.println(tm.getListOfEpicTasks());
+        System.out.println(tm.getListOfSubtasks());
+        System.out.println();
+
+        tm.updateSubtask(sub1);
+        tm.updateSubtask(sub2);
+
         System.out.println(tm.getListOfEpicTasks());
         System.out.println(tm.getListOfSubtasks());
         System.out.println();
@@ -42,7 +51,8 @@ public class Main {
         tm.createEpicTask(epic2);
         Subtask sub4 = new Subtask("Заказ", "Заказать ремонт", epic2.getId());
         tm.createSubtask(sub4);
-        tm.updateSubtask(new Subtask(sub4.getId(),sub4.getName(),sub4.getDescription(),sub4.getEpicId(),TaskStatus.DONE));
+        sub4.setStatus(TaskStatus.DONE);
+        tm.updateSubtask(sub4);
 
         System.out.println(tm.getListOfEpicTasks());
         System.out.println(tm.getListOfSubtasks());
