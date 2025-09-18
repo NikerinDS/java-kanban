@@ -1,3 +1,5 @@
+package tasktracker.data;
+
 import java.util.ArrayList;
 
 public class EpicTask extends Task {
@@ -22,7 +24,7 @@ public class EpicTask extends Task {
 
     @Override
     public String toString() {
-        return "EpicTask{" +
+        return "tasktracker.data.EpicTask{" +
                 "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 ", description='" + getDescription() + '\'' +
