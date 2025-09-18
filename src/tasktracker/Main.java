@@ -1,12 +1,15 @@
+package tasktracker;
+
 import tasktracker.data.EpicTask;
 import tasktracker.data.Subtask;
 import tasktracker.data.Task;
 import tasktracker.data.TaskStatus;
+import tasktracker.manager.Managers;
 import tasktracker.manager.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager tm = new TaskManager();
+        TaskManager tm = Managers.getDefaultTaskManager();
 
         Task task1 = new Task("1", "помыть полы");
         Task task2 = new Task("2", "");
