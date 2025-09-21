@@ -1,11 +1,12 @@
 package tasktracker.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EpicTask extends Task {
-    private ArrayList<Integer> subtasksId;
+    private final List<Integer> subtasksId;
 
-    public EpicTask(int id, String name, String description, ArrayList<Integer> subtasksId, TaskStatus taskStatus) {
+    public EpicTask(int id, String name, String description, List<Integer> subtasksId, TaskStatus taskStatus) {
         super(id, name, description, taskStatus);
         this.subtasksId = new ArrayList<>(subtasksId);
     }
@@ -18,13 +19,13 @@ public class EpicTask extends Task {
         this(0, name, description, new ArrayList<>(), TaskStatus.NEW);
     }
 
-    public ArrayList<Integer> getSubtasksId() {
+    public List<Integer> getSubtasksId() {
         return new ArrayList<>(subtasksId);
     }
 
     @Override
     public String toString() {
-        return "tasktracker.data.EpicTask{" +
+        return "EpicTask{" +
                 "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 ", description='" + getDescription() + '\'' +

@@ -9,7 +9,7 @@ import tasktracker.manager.TaskManager;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager tm = Managers.getDefaultTaskManager();
+                TaskManager tm = Managers.getDefaultTaskManager();
 
         Task task1 = new Task("1", "помыть полы");
         Task task2 = new Task("2", "");
@@ -72,5 +72,13 @@ public class Main {
         System.out.println(tm.getListOfEpicTasks());
         System.out.println(tm.getListOfSubtasks());
         System.out.println();
+
+        System.out.println();
+        System.out.println("-".repeat(40));
+        System.out.println();
+
+        for(Task task : tm.getHistory()) {
+            System.out.println(task);
+        }
     }
 }

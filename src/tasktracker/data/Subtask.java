@@ -22,7 +22,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "tasktracker.data.Subtask{" +
+        return "Subtask{" +
                 "id=" + getId() +
                 ", epicId=" + epicId +
                 ", name='" + getName() + '\'' +

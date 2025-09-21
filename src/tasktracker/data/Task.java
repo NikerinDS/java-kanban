@@ -69,7 +69,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "tasktracker.data.Task{" +
+        return "Task{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
