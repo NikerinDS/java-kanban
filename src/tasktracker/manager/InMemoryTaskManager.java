@@ -50,7 +50,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getSimpleTaskById(int id) {
-        Task task = new Task(simpleTasks.get(id));
+        Task task = simpleTasks.get(id);
+        if (task == null) return null;
+        task = new Task(task);
         history.add(task);
         return task;
     }
@@ -90,14 +92,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public EpicTask getEpicTaskById(int id) {
-        EpicTask epicTask = new EpicTask(epicTasks.get(id));
+        EpicTask epicTask = epicTasks.get(id);
+        if (epicTask == null) return null;
+        epicTask = new EpicTask(epicTask);
         history.add(epicTask);
         return epicTask;
     }
 
     @Override
     public void deleteEpicTaskById(int id) {
-        for (Integer subtaskId : getEpicTaskById(id).getSubtasksId()) {
+        for (Integer subtaskId : epicTasks.get(id).getSubtasksId()) {
             subtasks.remove(subtaskId);
         }
         epicTasks.remove(id);
@@ -118,7 +122,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubtask(Subtask task) {
         subtasks.put(task.getId(), new Subtask(task));
-        updateEpicTask(getEpicTaskById(task.getEpicId()));
+        updateEpicTask(epicTasks.get(task.getEpicId()));
     }
 
     @Override
@@ -133,8 +137,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Subtask> getListOfSubtasksByEpicId(Integer epicId) {
         ArrayList<Subtask> listOfTasks = new ArrayList<>();
-        for (Integer subtaskId : getEpicTaskById(epicId).getSubtasksId()) {
-            listOfTasks.add(getSubtaskById(subtaskId));
+        for (Integer subtaskId : epicTasks.get(epicId).getSubtasksId()) {
+            listOfTasks.add(subtasks.get(subtaskId));
         }
         return listOfTasks;
     }
@@ -151,7 +155,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Subtask getSubtaskById(int id) {
-        Subtask subtask = new Subtask(subtasks.get(id));
+        Subtask subtask = subtasks.get(id);
+        if (subtask == null) return null;
+        subtask = new Subtask(subtask);
         history.add(subtask);
         return subtask;
     }
@@ -169,7 +175,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-        return  history.getHistory();
+        return history.getHistory();
     }
 
 
@@ -182,7 +188,7 @@ public class InMemoryTaskManager implements TaskManager {
         boolean allNew = true;
         boolean allDone = true;
         for (Integer taskId : tasksId) {
-            TaskStatus subtaskStatus = getSubtaskById(taskId).getStatus();
+            TaskStatus subtaskStatus = subtasks.get(taskId).getStatus();
             allNew = allNew && (subtaskStatus == TaskStatus.NEW);
             allDone = allDone && (subtaskStatus == TaskStatus.DONE);
         }
