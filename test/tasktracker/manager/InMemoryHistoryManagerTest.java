@@ -31,17 +31,6 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void addSingleChangedTask() {
-        Task task = new Task(1, "1", "1", TaskStatus.NEW);
-        historyManager.add(task);
-        task.setStatus(TaskStatus.DONE);
-        historyManager.add(task);
-        List<Task> taskList = historyManager.getHistory();
-        assertEquals(TaskStatus.NEW, taskList.get(0).getStatus(), "История должна хранить независимые версии задач");
-        assertEquals(TaskStatus.DONE, taskList.get(1).getStatus(), "История должна хранить независимые версии задач");
-    }
-
-    @Test
     void addDifferentTasks() {
         Task task = new Task(1, "1", "1", TaskStatus.NEW);
         EpicTask epicTask = new EpicTask(2, "2", "2", new ArrayList<>(), TaskStatus.NEW);
@@ -56,13 +45,33 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldBe10LatestElementsInHistory() {
-        for (int i = 0; i < 15; i++) {
-            historyManager.add(new Task(i, "", "", TaskStatus.NEW));
-        }
+    void removeTask() {
+        Task task = new Task(1, "1", "1", TaskStatus.NEW);
+        historyManager.add(task);
+        historyManager.remove(task.getId());
         List<Task> taskList = historyManager.getHistory();
-        assertEquals(10, taskList.size(), "В истории должно хранится максимум 10 элементов");
-        assertEquals(5, taskList.getFirst().getId(), "В истории должны хранится последние добавленные задачи");
-        assertEquals(14, taskList.getLast().getId(), "В истории должны хранится последние добавленные задачи");
+        assertTrue(taskList.isEmpty(), "После удаления задачи история долна быть пустой");
     }
+
+    @Test
+    void addAndUpdateTasks() {
+        Task task1 = new Task(1, "1", "1", TaskStatus.NEW);
+        Task task2 = new Task(2, "2", "2", TaskStatus.NEW);
+        Task task3 = new Task(3, "3", "3", TaskStatus.NEW);
+        historyManager.add(task1);
+        historyManager.add(task2);
+        historyManager.add(task3);
+        task1.setStatus(TaskStatus.DONE);
+        task2.setStatus(TaskStatus.IN_PROGRESS);
+        historyManager.add(task1);
+        historyManager.add(task2);
+        List<Task> taskList = historyManager.getHistory();
+        assertEquals(3, taskList.size(), "В истории должны храниться только последние версии задач");
+        List<Task> expected = new ArrayList<>();
+        expected.add(task3);
+        expected.add(task1);
+        expected.add(task2);
+        assertIterableEquals(expected, taskList, "Задачи в истории должны храниться в порядке добавления или обновления");
+    }
+
 }

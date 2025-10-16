@@ -244,6 +244,11 @@ class InMemoryTaskManagerTest {
         expected.add(task);
         expected.add(epicTask);
         expected.add(subtask);
-        assertIterableEquals(expected, listOfTasks);
+        assertIterableEquals(expected, listOfTasks, "История должна хранить обращение к задачам");
+
+        taskManager.deleteSimpleTaskById(task.getId());
+        taskManager.deleteAllEpicTasks();
+        listOfTasks = taskManager.getHistory();
+        assertTrue(listOfTasks.isEmpty(), "После удаления задач в менеджере история должна быть пустой");
     }
 }
